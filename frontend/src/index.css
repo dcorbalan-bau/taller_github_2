@@ -1,0 +1,120 @@
+:root {
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  color: #0f172a;
+  background-color: #fafafa;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: #fafafa;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 64px 20px;
+  display: grid;
+  align-content: center;
+  gap: 12px;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: clamp(2rem, 3vw + 1rem, 3.75rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-align: center;
+}
+
+.form-card,
+.welcome-card {
+  background: #f8f9fa;
+  border: 0.8px solid #f1f5f9;
+  border-radius: 16px;
+  box-shadow:
+    rgba(0, 0, 0, 0.04) 0 0 0 1px inset,
+    rgba(0, 0, 0, 0.06) 0 0 0 1px,
+    rgba(0, 0, 0, 0.06) 0 1px 1px -0.5px,
+    rgba(0, 0, 0, 0.06) 0 3px 3px -1.5px,
+    rgba(0, 0, 0, 0.06) 0 6px 6px -3px;
+  backdrop-filter: blur(12px);
+  padding: 18px;
+}
+
+.form-card {
+  display: grid;
+  gap: 12px;
+}
+
+.field {
+  display: grid;
+  gap: 8px;
+  color: #64748b;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.field input {
+  border: 1px solid #f1f5f9;
+  border-radius: 4px;
+  background: #fff;
+  color: #0f172a;
+  padding: 12px;
+  font: inherit;
+}
+
+.field input:focus {
+  outline: 2px solid #0f172a;
+  outline-offset: 1px;
+}
+
+button {
+  border: 1px solid #0f172a;
+  border-radius: 4px;
+  background: #0f172a;
+  color: #f8f9fa;
+  padding: 12px;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.error-message {
+  margin: 0;
+  color: #b91c1c;
+}
+
+.welcome-card {
+  display: grid;
+  gap: 8px;
+}
+
+.welcome-text {
+  margin: 0;
+}
+
+.token-state {
+  margin: 0;
+  color: #64748b;
+}

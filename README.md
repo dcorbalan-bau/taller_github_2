@@ -1,33 +1,41 @@
-# JWT Demo API con FastAPI
+# Aplicación Backend + Frontend (JWT)
 
-Este repositorio incluye una aplicación Web API en Python/FastAPI dentro de la carpeta `/backend` que implementa autenticación JWT con:
+Este repositorio incluye:
 
-- generación de token para el usuario `admin` con contraseña `admin123`
-- expiración del access token en `300` segundos
-- endpoint para refrescar el token
-- configuración con Poetry
-- despliegue con Docker y Docker Compose
+- `backend/`: API FastAPI con autenticación JWT.
+- `frontend/`: aplicación React con pantalla de login y pantalla de bienvenida.
+
+El frontend consume `POST /auth/token`, guarda el `access_token` en `sessionStorage` y protege la navegación para que solo usuarios autenticados accedan a `/welcome`.
 
 ## Estructura
 
 ```text
 .
+├── Compliance-Platform-DESIGN.md
 ├── backend
 │   ├── app
 │   │   └── main.py
 │   ├── Dockerfile
 │   ├── poetry.lock
 │   └── pyproject.toml
-└── docker-compose.yml
+├── docker-compose.yml
+└── frontend
+    ├── package.json
+    ├── src
+    │   ├── App.jsx
+    │   ├── index.css
+    │   └── main.jsx
+    └── vite.config.js
 ```
 
 ## Requisitos
 
 - Python 3.12+
-- Poetry
+- Poetry (para backend)
+- Node.js 20+ y npm (para frontend)
 - Docker y Docker Compose (opcional)
 
-## Ejecución local con Poetry
+## Backend (FastAPI)
 
 ```bash
 cd backend
@@ -36,15 +44,38 @@ poetry install --no-root
 poetry run uvicorn app.main:app --reload
 ```
 
-La API quedará disponible en `http://127.0.0.1:8000`.
+API disponible en `http://127.0.0.1:8000`.
 
-## Endpoints
+Credenciales por defecto:
 
-### 1. Obtener token
+- usuario: `admin`
+- contraseña: `admin123`
+
+## Frontend (React)
+
+En una segunda terminal:
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Aplicación disponible en `http://127.0.0.1:5173`.
+
+### Flujo de uso
+
+1. Abrir `http://127.0.0.1:5173/login`.
+2. Iniciar sesión con las credenciales del backend.
+3. Tras login exitoso, se redirige a `/welcome`.
+4. El token JWT se guarda en sesión (`sessionStorage`).
+5. Si no hay sesión activa, `/welcome` redirige automáticamente a `/login`.
+
+## Endpoints backend
+
+### Obtener token
 
 `POST /auth/token`
-
-Body:
 
 ```json
 {
@@ -53,50 +84,12 @@ Body:
 }
 ```
 
-Respuesta esperada:
-
-```json
-{
-  "access_token": "<jwt>",
-  "refresh_token": "<jwt>",
-  "token_type": "bearer",
-  "expires_in": 300
-}
-```
-
-### 2. Refrescar token
+### Refrescar token
 
 `POST /auth/refresh`
-
-Body:
 
 ```json
 {
   "refresh_token": "<jwt>"
 }
 ```
-
-## Uso con Docker
-
-Construcción y arranque:
-
-```bash
-export JWT_SECRET_KEY="reemplaza-esta-clave"
-docker compose up --build
-```
-
-La API quedará expuesta en `http://localhost:8000`.
-
-## Variables de entorno
-
-- `JWT_SECRET_KEY`: clave obligatoria usada para firmar los JWT
-- `JWT_REFRESH_EXPIRE_SECONDS`: duración del refresh token en segundos (por defecto `3600`)
-- `JWT_DEMO_USERNAME`: usuario permitido para la demo (por defecto `admin`)
-- `JWT_DEMO_PASSWORD`: contraseña permitida para la demo (por defecto `admin123`)
-
-## Documentación interactiva
-
-FastAPI expone automáticamente:
-
-- Swagger UI: `http://localhost:8000/docs`
-- ReDoc: `http://localhost:8000/redoc`
