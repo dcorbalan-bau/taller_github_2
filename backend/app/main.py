@@ -15,8 +15,8 @@ ACCESS_TOKEN_EXPIRE_SECONDS = 300
 REFRESH_TOKEN_EXPIRE_SECONDS = int(os.getenv("JWT_REFRESH_EXPIRE_SECONDS", "3600"))
 JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = "HS256"
-VALID_USERNAME = "admin"
-VALID_PASSWORD = "admin123"
+VALID_USERNAME = os.getenv("JWT_DEMO_USERNAME", "admin")
+VALID_PASSWORD = os.getenv("JWT_DEMO_PASSWORD", "admin123")
 
 if not JWT_SECRET_KEY:
     raise RuntimeError("JWT_SECRET_KEY environment variable must be set.")

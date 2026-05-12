@@ -91,6 +91,8 @@ La API quedará expuesta en `http://localhost:8000`.
 
 - `JWT_SECRET_KEY`: clave obligatoria usada para firmar los JWT
 - `JWT_REFRESH_EXPIRE_SECONDS`: duración del refresh token en segundos (por defecto `3600`)
+- `JWT_DEMO_USERNAME`: usuario permitido para la demo (por defecto `admin`)
+- `JWT_DEMO_PASSWORD`: contraseña permitida para la demo (por defecto `admin123`)
 
 ## Documentación interactiva
 
