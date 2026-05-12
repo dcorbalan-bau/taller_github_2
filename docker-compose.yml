@@ -3,6 +3,6 @@ services:
     build:
       context: ./backend
     environment:
-      JWT_SECRET_KEY: change-this-secret-in-production
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?JWT_SECRET_KEY must be set}
     ports:
       - "8000:8000"

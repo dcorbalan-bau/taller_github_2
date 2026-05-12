@@ -80,6 +80,7 @@ Body:
 Construcción y arranque:
 
 ```bash
+export JWT_SECRET_KEY="reemplaza-esta-clave"
 docker compose up --build
 ```
 
