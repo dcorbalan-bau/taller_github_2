@@ -13,10 +13,13 @@ app = FastAPI(title="JWT Demo API", version="1.0.0")
 
 ACCESS_TOKEN_EXPIRE_SECONDS = 300
 REFRESH_TOKEN_EXPIRE_SECONDS = int(os.getenv("JWT_REFRESH_EXPIRE_SECONDS", "3600"))
-JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY", "change-this-secret-in-production")
+JWT_SECRET_KEY = os.getenv("JWT_SECRET_KEY")
 JWT_ALGORITHM = "HS256"
 VALID_USERNAME = "admin"
 VALID_PASSWORD = "admin123"
+
+if not JWT_SECRET_KEY:
+    raise RuntimeError("JWT_SECRET_KEY environment variable must be set.")
 
 
 class LoginRequest(BaseModel):
@@ -53,18 +56,18 @@ def validate_token(token: str, expected_type: str) -> dict:
     except ExpiredSignatureError as exc:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="El token ha expirado.",
+            detail="Token has expired.",
         ) from exc
     except InvalidTokenError as exc:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="El token no es válido.",
+            detail="Invalid token.",
         ) from exc
 
     if payload.get("type") != expected_type:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="El tipo de token no es válido para esta operación.",
+            detail="Invalid token type for this operation.",
         )
 
     return payload
@@ -85,7 +88,7 @@ def login(credentials: LoginRequest) -> TokenResponse:
     ):
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Credenciales inválidas.",
+            detail="Invalid credentials.",
         )
 
     return build_token_response(credentials.username)
