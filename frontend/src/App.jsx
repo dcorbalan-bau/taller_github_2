@@ -127,6 +127,51 @@ function App() {
     </form>
   )
 
+  const certifications = [
+    {
+      id: 1,
+      title: 'GitHub Copilot',
+      level: 'intermediate',
+      description: 'Certifica tu habilidad en usar la herramienta de completado de código impulsada por IA en varios lenguajes de programación, optimizando los flujos de trabajo de desarrollo de software de manera eficiente.',
+      url: 'https://learn.microsoft.com/en-us/credentials/certifications/github-copilot/',
+    },
+    {
+      id: 2,
+      title: 'GitHub Actions',
+      level: 'intermediate',
+      description: 'Certifica tu competencia en automatización de flujos de trabajo y aceleración del desarrollo con GitHub Actions. Prueba tus habilidades en optimización de flujos de trabajo, automatización de tareas y pipelines de software, incluyendo CI/CD.',
+      url: 'https://learn.microsoft.com/en-us/credentials/certifications/github-actions/',
+    },
+    {
+      id: 3,
+      title: 'GitHub Administration',
+      level: 'advanced',
+      description: 'Certificación avanzada para administradores de GitHub que gestioanan organizaciones y repositorios empresariales.',
+      url: 'https://learn.microsoft.com/en-us/credentials/certifications/github-administration/',
+    },
+    {
+      id: 4,
+      title: 'GitHub Advanced Security',
+      level: 'advanced',
+      description: 'Certificación avanzada enfocada en seguridad de código y aplicaciones con GitHub Advanced Security.',
+      url: 'https://learn.microsoft.com/en-us/credentials/certifications/github-advanced-security/',
+    },
+    {
+      id: 5,
+      title: 'Microsoft 365: Copilot and Agent Administration Fundamentals',
+      level: 'intermediate',
+      description: 'Certificación fundamental para administradores de Microsoft 365 Copilot y agentes, cubriendo características principales, seguridad, identidad y protección de datos.',
+      url: 'https://learn.microsoft.com/en-us/credentials/certifications/copilot-and-agent-administration-fundamentals/',
+    },
+    {
+      id: 6,
+      title: 'Microsoft 365: Collaboration Communications Systems Engineer Associate',
+      level: 'advanced',
+      description: 'Demuestra habilidades para configurar, desplegar, monitorear y gestionar Microsoft Teams Phone, reuniones y dispositivos certificados.',
+      url: 'https://learn.microsoft.com/en-us/credentials/certifications/m365-collaboration-communications-systems-engineer/',
+    },
+  ]
+
   const renderWelcome = () => (
     <section className="welcome-card">
       <p className="welcome-text">¡Bienvenido/a, {savedUsername || 'usuario'}!</p>
@@ -134,6 +179,31 @@ function App() {
       <button type="button" onClick={handleLogout}>
         Cerrar sesión
       </button>
+
+      <div className="certifications-section">
+        <h2 className="certifications-title">
+          Certificaciones Microsoft 2026
+        </h2>
+        <div className="certifications-grid">
+          {certifications.map((cert) => (
+            <article key={cert.id} className="certification-card">
+              <span className={`certification-badge ${cert.level}`}>
+                {cert.level === 'intermediate' ? 'Intermedio' : 'Avanzado'}
+              </span>
+              <h3 className="certification-card-title">{cert.title}</h3>
+              <p className="certification-card-description">{cert.description}</p>
+              <a
+                href={cert.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="certification-card-link"
+              >
+                Ver más →
+              </a>
+            </article>
+          ))}
+        </div>
+      </div>
     </section>
   )
 
